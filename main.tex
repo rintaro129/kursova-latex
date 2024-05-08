@@ -1,0 +1,208 @@
+\documentclass[a4paper, 14pt]{article}
+\usepackage{fontspec, extsizes, geometry, setspace, titlesec, fancyhdr, graphicx, float, setspace, caption, array, tabularx, ulem, indentfirst, ragged2e}
+\usepackage[ukrainian]{babel} % підтримка мов
+\usepackage[dotinlabels]{titletoc} 
+\setmainfont[Ligatures=TeX]{Times New Roman}
+\geometry{a4paper,total={165mm,257mm},left=3cm,top=2cm,bottom=2cm,right=1.5cm} % cтавить береги та формат а4
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}\let\endchangemargin=\endlist % зручна команда для виставлення відступів
+\makeatletter\newcommand\Dotfill{\leavevmode\leaders\hb@xt@0.25em{\hss.\hss}\hfill}\makeatother % команда для ставлення точок
+\let\stdsection\section\renewcommand\section{\newpage\stdsection} % Новая секція -> нова сторінка
+\addto\captionsenglish{\renewcommand{\figurename}{Рис.}} % підпис картинок
+\titleformat{\section}[display]{\filcenter}{\bfseries{РОЗДІЛ \thesection}}{0pt}{\bfseries\MakeUppercase} % Изменение заголовка всех разделов
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Чиним номер подраздела
+\titleformat{\subsection}{\filcenter}{\bfseries \thesubsection. }{0pt}{\bfseries}{} %чиним название подраздела 
+\captionsetup{labelsep=period} % "Рис. 1." вместо "Рис. 1:"
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}\newcommand{\changefont}{\fontsize{14}{14}\selectfont}\fancyhead[R]{\changefont \thepage}\fancypagestyle{plain}{\fancyhf{}\fancyhead[R]{\changefont \thepage}\renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}\pagestyle{fancy} %номер страницы справа сверху на всех страничках [это ужас]
+\linespread{1.43} % Інтервал абзацу полуторний
+\renewcommand{\contentsname}{ЗМІСТ} %изменяем название странички с содержанием
+\def\numberline#1{#1. } % Фикс чтобы названия не налезали друг на друга в содержании
+\titlecontents{section}[0pt]{\normalfont}{РОЗДІЛ \thecontentslabel. }{}{\Dotfill \contentspage} % оформление разделов, точек в содержании
+\titlecontents{subsection}[15pt]{\normalfont}{\thecontentslabel. }{}{\Dotfill \contentspage} % оформление подразделов, точек в содержании
+\titlecontents{subsubsection}[30pt]{\normalfont}{\thecontentslabel. }{}{\Dotfill \contentspage} % оформление подподразделов, точек в содержании
+\counterwithin{table}{section} % нумерация таблиц с номером раздела
+\counterwithin{table}{section} % нумерация таблиц с номером раздела
+\usepackage[none]{hyphenat} \justifying\sloppy % щоб текст розтягувався
+\setlength{\parindent}{0.5in} % виставляємо відступ абзацу
+
+% ------------------------------------------- Преамбула закінчилась -------------------------------------------
+
+% ------------------------------------------- Титулка ---------------------------------------------------------
+\begin{document}
+% Титулка
+\thispagestyle{empty}
+\begin{center}
+Міністерство освіти і науки України\\
+Харківський національний університет радіоелектроніки \par
+\null\par
+Кафедра програмної інженерії \par
+\null\par\null\par\null\par
+КУРСОВА РОБОТА\\
+ПОЯСНЮВАЛЬНА ЗАПИСКА\\
+з дисципліни ``Об'єктно-орієнтоване програмування''\\
+<НАЗВА> 
+\end{center}
+\par\null\par\null
+\begin{changemargin}{-0.25cm}{0cm}
+\begin{tabular}{ p{20em} p{11em} } 
+Керівник ,  <посада> & <прізвище, ініціали > \\
+Студент гр. <шифр групи> & <прізвище, ініціали > \\
+\end{tabular}
+\par\null\par\null
+\begin{tabular}{ l } 
+Комісія: \\
+\end{tabular}
+\end{changemargin}
+\begin{changemargin}{1cm}{0cm}
+\begin{tabular}{ p{12em} p{7em} p{8em} }
+    <посада> & \underline{\makebox[7em][c]{}} & <прізвище, ініціали> \\
+    <посада> & \underline{\makebox[7em][c]{}} & <прізвище, ініціали> \\
+    <посада> & \underline{\makebox[7em][c]{}} & <прізвище, ініціали> \\
+\end{tabular}
+\vspace*{\fill}\end{changemargin}
+\begin{center}
+Харків -- \the\year{}
+\end{center}
+\newpage
+% ------------------------------------------- Титулка закінчилась ---------------------------------------------
+
+% ------------------------------------------- Аркуш завдання --------------------------------------------------
+\begin{center}
+    ХАРКІВСЬКИЙ НАЦІОНАЛЬНИЙ УНІВЕРСИТЕТ РАДІОЕЛЕКТРОНІКИ
+    \begin{changemargin}{1cm}{0cm}
+        \begin{tabular}{ l l }
+    Кафедра & \textit{програмної інженерії} \\
+Рівень вищої освіти & \textit{перший (бакалаврський)} \\
+Дисципліна & \textit{Об’єктно-орієнтоване програмування} \\
+Спеціальність & 1\textit{21 Інженерія програмного забезпечення} \\
+Освітня програма & \textit{Програмна інженерія} \\
+\end{tabular}
+    \end{changemargin}
+\begin{tabularx}{\textwidth} { 
+   >{\raggedright\arraybackslash}X 
+   >{\centering\arraybackslash}X 
+   >{\raggedleft\arraybackslash}X  }
+ Курс \underline{\makebox[5em][c]{\textit{1}}}  & Група \underline{\makebox[5em][c]{\textit{ПЗПІ-23-X}}} & Семестр \underline{\makebox[5em][c]{\textit{2}}}\\
+\end{tabularx}
+\null\par\null
+\textit{\textbf{ЗАВДАННЯ \\
+на текстовий проєкт студента}} \par
+\underline{\makebox[\textwidth][c]{<прізвише, ім'я, по батькові>}} \\
+\scriptsize{(Прізвище, Ім'я, По батькові)} \\
+\end{center}
+1 Тема проєкту: \\
+\uline{\makebox[\textwidth][c]{<тема проєкту>}} \\ 
+2 Термін здачі студентом закінченого проекту: \textbf{\textit{``\underline{08}'' - червня - 2024 р.}} \\
+3 Вихідні дані до проекту: \par
+\uline{<Завдання на курсову роботу> <Завдання на курсову роботу> <Завдання на курсову роботу> <Завдання на курсову роботу> < Завдання на курсову роботу > < Завдання на курсову роботу > <Завдання на курсову роботу>}  \par \null \par \noindent
+Зміст розрахунково-пояснювальної записки: \par
+\uline{<Вступ, опис вимог, проектування програми, інструкція користувача,
+висновки> <Вступ, опис вимог, проектування програми, інструкція,
+висновки >} \\
+\newpage
+% ------------------------------------------- Аркуш завдання закінчився ---------------------------------------
+
+% ------------------------------------------- Календарний план ------------------------------------------------
+\noindent
+\begin{center}
+    КАЛЕНДАРНИЙ ПЛАН \par \null \par
+    \end{center}
+  \begin{tabular}{|p{1em} | p{17em} | p{11em}|}
+     \hline
+        \multicolumn{1}{|c|}{\textit{№}} & \multicolumn{1}{c}{\textit{Назва етапу}} & \multicolumn{1}{|c|}{\textit{Термін виконання}} \\ \hline
+    1 & Видача теми, узгодження і затвердження теми & 13.02.2024 - 15.03.2024 р. \\ \hline
+    2 & Формулювання вимог до програми & \hspace{1em}.\hspace{1em}.2024 – \hspace{1em}.\hspace{1em}.2024 р. \\ \hline
+    3 & Розробка підсистеми зберігання та пошуку даних. & \hspace{1em}.\hspace{1em}.2024 – \hspace{1em}.\hspace{1em}.2024 р. \\ \hline
+    4 & Розробка функцій \ldots & \hspace{1em}.\hspace{1em}.2024 – \hspace{1em}.\hspace{1em}.2024 р. \\ \hline
+    5 & Розробка функцій зберігання та завантаження даних & \hspace{1em}.\hspace{1em}.2024 – \hspace{1em}.\hspace{1em}.2024 р. \\ \hline
+    6 & Тестування і доопрацювання розробленої програмної системи. & \hspace{1em}.\hspace{1em}.2024 – \hspace{1em}.\hspace{1em}.2024 р. \\ \hline
+    7 & Оформлення пояснювальної записки, додатків, графічного матеріалу & \hspace{1em}.\hspace{1em}.2024 – \hspace{1em}.\hspace{1em}.2024 р. \\ \hline
+    8 & Захист & \hspace{1em}.\hspace{1em}.2024 – \hspace{1em}.\hspace{1em}.2024 р. \\ \hline
+  \end{tabular}
+
+\par \null \par \null \par \null \par \null \par \null \par \noindent
+\begin{tabularx}{\textwidth} { 
+   >{\raggedright\arraybackslash}X 
+   >{\raggedleft\arraybackslash}X  }
+    Cтудент \underline{\hspace{10em}} \\
+    \\
+    Керівник \underline{\hspace{10em}} & \underline{\hspace{10em}} \\
+     & \scriptsize{(Прізвище, Ім'я, По батькові)} \\
+     << 21 >> \underline{\makebox[5em][l]{ лютого}} 2024 р.
+\end{tabularx}
+% ------------------------------------------- Календарний план закінчився -------------------------------------
+
+% ------------------------------------------- Реферат ---------------------------------------------------------
+\section*{РЕФЕРАТ}
+Пояснювальна записка до курсової роботи: 44 с., 10 рис., 3 табл., 2
+додатки, 7 джерел. \par
+ПОКУПЕЦЬ, МАГАЗИН, ЗВІТ, ООП, .NET, МОВА C\# \par
+Метою роботи є розробка програми «Довідник покупця», яка буде
+надавати користувачу довідки про товари та магазини. \par
+В результаті отримана програма, що дозволяє зберігати список магазинів,
+характеристики кожного магазину, такі як: назва, спеціалізація, адреса,
+телефон, час роботи, вид власності. Є можливість утворювати нові списки
+магазинів, додавати, видаляти та редагувати магазини. Також, є функція
+формування звіту у Microsoft Excel. \par
+В процесі розробки використано середовище розробки Microsoft Visual
+Studio 2022, фреймворк Windows Forms, платформа .NET 8.0, мова
+програмування C\#.
+% ------------------------------------------- Реферат закінчився ----------------------------------------------
+
+% ------------------------------------------- Зміст -----------------------------------------------------------
+\tableofcontents %генерація змісту
+% ------------------------------------------- Зміст завершився ------------------------------------------------
+
+% ------------------------------------------- Вступ -----------------------------------------------------------
+\section*{\textbf{ВСТУП}}
+\addcontentsline{toc}{section}{ВСТУП} %додаємо сторінку Вступу до змісту
+Ваш ВСТУП
+% ------------------------------------------- Вступ закінчився ------------------------------------------------
+
+% ------------------------------------------- Ну і далі сама ваша курсова -------------------------------------
+\section{Основна частина}
+Одна з провідних глобальних компаній надає широкий спектр послуг, а саме закупівлю-продаж, пасажирські перевезення та кабельне телебачення.
+
+Хочемо підкорювати стильних особистостей комфортом глобального громадянства і прагнемо розвивати передачу даних, послуги доставки кореспонденції і юридичний захист ваших прав разом із замовниками. У своїй діяльності товариство застосовує універсальні сучасні технології новаторства, відкриттів та безпрограшних домовленостей. Незмінно зміцнює позиції широкий вибір інновацій: кімнатні й садові рослини, кредити для малого та середнього бізнесу і мобільний голосовий зв'язок для гостей столиці і домашніх улюбленців. Систематичне вдосконалення, фінансово відповідальні ціни, модернізація топ-менеджерів та синергетичне поєднання забезпечили організації успіх і провідну роль на світовому ринку.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{example-image-a}
+    \caption{Правильно подпись делает, между прочим!}
+    \label{fig:mesh1}
+\end{figure} 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{example-image-a}
+    \caption{Правильно подпись делает, между прочим!}
+    \label{fig:1}
+\end{figure} 
+\label{sec:main}
+\subsection{Подраздел}
+\label{subsec:main}
+\subsubsection{Подподраздел}
+\label{subsubsec:main}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{example-image-a}
+    \caption{Правильно подпись делает, между прочим!}
+    \label{fig:mesh1}
+\end{figure} 
+\section{очень-очень-очень-очень-очень-очень-очень-очень длинное название раздела (такое бывает)}
+Как было сказано в разделе \ref{sec:main}...\\
+Как было сказано в подразделе \ref{subsec:main}...\\
+Как было сказано в подподразделе \ref{subsubsec:main}...\\
+% ------------------------------------------- Курсова завершилась ---------------------------------------------
+
+% ------------------------------------------- Перелік джерел посилання ----------------------------------------
+\addcontentsline{toc}{section}{ПЕРЕЛІК ДЖЕРЕЛ ПОСИЛАННЯ} 
+\section*{ПЕРЕЛІК ДЖЕРЕЛ ПОСИЛАННЯ}
+\begin{enumerate}
+    \item Дичківська О. О. Інноваційний менеджмент : конспект лекцій. Київ :
+ДІА, 2018. 82 с.
+    \item Мороз І. С., Василенко Н. Ю. Маркетинг : конспект лекцій. Київ :
+Молодь, 2016. 102 с.
+\end{enumerate}
+% ------------------------------------------- Перелік джерел посилання закінчився -----------------------------
+
+\end{document}
+
