@@ -1,29 +1,71 @@
 \documentclass[a4paper, 14pt]{article}
-\usepackage{fontspec, extsizes, geometry, setspace, titlesec, fancyhdr, graphicx, float, setspace, caption, array, tabularx, ulem, indentfirst, ragged2e}
-\usepackage[ukrainian]{babel} % підтримка мов
+\usepackage{fontspec, extsizes, geometry, setspace, titlesec, fancyhdr, graphicx, float, setspace, caption, array, tabularx, ulem, indentfirst, ragged2e, caption, appendix}
+\usepackage[main=ukrainian, english]{babel} % підтримка мов
 \usepackage[dotinlabels]{titletoc} 
 \setmainfont[Ligatures=TeX]{Times New Roman}
-\geometry{a4paper,total={165mm,257mm},left=3cm,top=2cm,bottom=2cm,right=1.5cm} % cтавить береги та формат а4
+\geometry{a4paper,left=3cm,top=2cm,bottom=2cm,right=1.5cm} % cтавить береги та формат а4
 \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}\let\endchangemargin=\endlist % зручна команда для виставлення відступів
-\makeatletter\newcommand\Dotfill{\leavevmode\leaders\hb@xt@0.25em{\hss.\hss}\hfill}\makeatother % команда для ставлення точок
+\makeatletter\newcommand\Dotfill{\leavevmode\leaders\hb@xt@0.5em{\hss.\hss}\hfill}\makeatother % команда для ставлення точок
 \let\stdsection\section\renewcommand\section{\newpage\stdsection} % Новая секція -> нова сторінка
-\addto\captionsenglish{\renewcommand{\figurename}{Рис.}} % підпис картинок
-\titleformat{\section}[display]{\filcenter}{\bfseries{РОЗДІЛ \thesection}}{0pt}{\bfseries\MakeUppercase} % Изменение заголовка всех разделов
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Чиним номер подраздела
-\titleformat{\subsection}{\filcenter}{\bfseries \thesubsection. }{0pt}{\bfseries}{} %чиним название подраздела 
-\captionsetup{labelsep=period} % "Рис. 1." вместо "Рис. 1:"
+\addto\captionsukrainian{\renewcommand{\figurename}{Рисунок}} % підпис картинок не Рис. а Рисунок
+\titleformat{\section}{\filcenter}{\bfseries{\thesection} }{0pt}{\bfseries\MakeUppercase} % Форматування заголовків всіх розділів
+% \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Чиним номер подраздела
+\titleformat{\subsection}{}{{\thesubsection} }{0pt}{} % нумерація підрозділів
+\titlespacing*{\subsection}{\parindent}{\baselineskip}{\baselineskip} % рядок перед та пілся підрозділу та підрозділ з абзацу
+\titleformat{\subsubsection}{}{{\thesubsubsection} }{0pt}{} % нумерація підпідрозділів
+\titlespacing*{\subsubsection}{\parindent}{\baselineskip}{\baselineskip} % рядок перед та пілся підпідрозділу та підпідрозділ з абзацу
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip} % рядок перед та пілся розділу
+\captionsetup{labelsep=endash} % "Рис. 1 - замість Рис. 1:"
 \fancyhf{}\renewcommand{\headrulewidth}{0pt}\newcommand{\changefont}{\fontsize{14}{14}\selectfont}\fancyhead[R]{\changefont \thepage}\fancypagestyle{plain}{\fancyhf{}\fancyhead[R]{\changefont \thepage}\renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}\pagestyle{fancy} %номер страницы справа сверху на всех страничках [это ужас]
 \linespread{1.43} % Інтервал абзацу полуторний
-\renewcommand{\contentsname}{ЗМІСТ} %изменяем название странички с содержанием
+% \renewcommand{\contentsname}{ЗМІСТ} %изменяем название странички с содержанием
 \def\numberline#1{#1. } % Фикс чтобы названия не налезали друг на друга в содержании
-\titlecontents{section}[0pt]{\normalfont}{РОЗДІЛ \thecontentslabel. }{}{\Dotfill \contentspage} % оформление разделов, точек в содержании
-\titlecontents{subsection}[15pt]{\normalfont}{\thecontentslabel. }{}{\Dotfill \contentspage} % оформление подразделов, точек в содержании
-\titlecontents{subsubsection}[30pt]{\normalfont}{\thecontentslabel. }{}{\Dotfill \contentspage} % оформление подподразделов, точек в содержании
+\titlecontents{section}[0pt]{\normalfont}{{\thecontentslabel} }{}{\Dotfill \contentspage} % оформление разделов, точек в содержании
+\titlecontents{subsection}[15pt]{\normalfont}{{\thecontentslabel} }{}{\Dotfill \contentspage} % оформление подразделов, точек в содержании
+\titlecontents{subsubsection}[30pt]{\normalfont}{{\thecontentslabel} }{}{\Dotfill \contentspage} % оформление подподразделов, точек в содержании
+\counterwithin{figure}{section} % нумерация картинок с номером раздела
 \counterwithin{table}{section} % нумерация таблиц с номером раздела
-\counterwithin{table}{section} % нумерация таблиц с номером раздела
-\usepackage[none]{hyphenat} \justifying\sloppy % щоб текст розтягувався
+\usepackage[none]{hyphenat} % щоб слова переносились закоментуйте цей та наступний рядок
+\justifying\sloppy % щоб текст розтягувався
 \setlength{\parindent}{0.5in} % виставляємо відступ абзацу
+\captionsetup[table]{format=hang,margin=0.5in, justification=raggedright, singlelinecheck=false} % підпис таблиць не по центру а з абзацу
 
+% для форматування картинок та таблиць:
+\setlength{\intextsep}{0pt}
+\captionsetup[figure]{belowskip=-12pt}
+\newlength{\magicspace}\setlength{\magicspace}{2\baselineskip}
+% щоб був рядок до і після картинки: 
+\let\oldfigure\figure
+\let\endoldfigure\endfigure
+\renewenvironment{figure}[1][]{\begin{oldfigure}[#1]\vspace{\magicspace}}{\vspace{\magicspace}\end{oldfigure}}
+% щоб був рядок до і після таблиці: зроблено експериментально :)
+\let\oldtable\table
+\let\endoldtable\endtable
+\renewenvironment{table}[1][]{\begin{oldtable}[#1]\vspace{\magicspace}}{\vspace{\glueexpr \magicspace - 8pt\relax}\end{oldtable}}
+% це капець.....
+
+\addto\extrasukrainian{\renewcommand\refname{Перелік джерел посилання}} % змінити назву переліка посилань з Література на Перелік джерел посилання
+% змінюємо нумерацію в переліку посилань з [1] на 1. :
+\makeatletter
+\renewcommand*\@biblabel[1]{#1.}
+\makeatother
+
+\usepackage{totcount}
+% каунтер для референсів:
+\newtotcounter{citnum}
+\def\oldbibitem{} \let\oldbibitem=\bibitem
+\def\bibitem{\stepcounter{citnum}\oldbibitem}
+
+% каунтер для рисунків та таблиць:
+\usepackage[figure,table]{totalcount}
+
+% каунтер для додатків: (хз як це працює :) )
+\AtBeginDocument{
+    %% register a counter on the basis of the last chapter in totcounter
+    \regtotcounter{section}
+}
+
+\usepackage{lastpage} % для каунтера сторінок
 % ------------------------------------------- Преамбула закінчилась -------------------------------------------
 
 % ------------------------------------------- Титулка ---------------------------------------------------------
@@ -133,8 +175,8 @@
 
 % ------------------------------------------- Реферат ---------------------------------------------------------
 \section*{РЕФЕРАТ}
-Пояснювальна записка до курсової роботи: 44 с., 10 рис., 3 табл., 2
-додатки, 7 джерел. \par
+Пояснювальна записка до курсової роботи: \pageref{LastPage} с., \totalfigures{} рис., \totaltables{} табл., \total{section}
+додатк., \total{citnum}\ джер.. \par
 ПОКУПЕЦЬ, МАГАЗИН, ЗВІТ, ООП, .NET, МОВА C\# \par
 Метою роботи є розробка програми «Довідник покупця», яка буде
 надавати користувачу довідки про товари та магазини. \par
@@ -142,7 +184,7 @@
 характеристики кожного магазину, такі як: назва, спеціалізація, адреса,
 телефон, час роботи, вид власності. Є можливість утворювати нові списки
 магазинів, додавати, видаляти та редагувати магазини. Також, є функція
-формування звіту у Microsoft Excel. \par
+формування звіту у Microsoft Excel.  \par
 В процесі розробки використано середовище розробки Microsoft Visual
 Studio 2022, фреймворк Windows Forms, платформа .NET 8.0, мова
 програмування C\#.
@@ -153,56 +195,137 @@ Studio 2022, фреймворк Windows Forms, платформа .NET 8.0, мо
 % ------------------------------------------- Зміст завершився ------------------------------------------------
 
 % ------------------------------------------- Вступ -----------------------------------------------------------
-\section*{\textbf{ВСТУП}}
-\addcontentsline{toc}{section}{ВСТУП} %додаємо сторінку Вступу до змісту
+\section*{Вступ}
+\addcontentsline{toc}{section}{Вступ} %додаємо сторінку Вступу до змісту
 Ваш ВСТУП
 % ------------------------------------------- Вступ закінчився ------------------------------------------------
 
 % ------------------------------------------- Ну і далі сама ваша курсова -------------------------------------
-\section{Основна частина}
-Одна з провідних глобальних компаній надає широкий спектр послуг, а саме закупівлю-продаж, пасажирські перевезення та кабельне телебачення.
+\section{Опис вимог}
+\label{sec:requirements} % можна позначати також розділи
+Це ваш перший розділ. До нього можна посилатись, якщо в нього є лейбл, наприклад \verb|\label{sec:requirements}|. Тоді при \verb|\ref{sec:requirements}| буде показуватись його номер, тобто \ref{sec:requirements}. Текст не переноситься через строку. Якщо ви хочете увімкнути перенос, то зайдіть у преамбулу.
 
-Хочемо підкорювати стильних особистостей комфортом глобального громадянства і прагнемо розвивати передачу даних, послуги доставки кореспонденції і юридичний захист ваших прав разом із замовниками. У своїй діяльності товариство застосовує універсальні сучасні технології новаторства, відкриттів та безпрограшних домовленостей. Незмінно зміцнює позиції широкий вибір інновацій: кімнатні й садові рослини, кредити для малого та середнього бізнесу і мобільний голосовий зв'язок для гостей столиці і домашніх улюбленців. Систематичне вдосконалення, фінансово відповідальні ціни, модернізація топ-менеджерів та синергетичне поєднання забезпечили організації успіх і провідну роль на світовому ринку.
+Це новий параграф. Його можна починати через пусту строку чи через \verb|\par| \par
+ніби ви нажали ентер
+
+Для того щоб просто перенести на новий рядок без відступу використовуйте \verb|\\| \\
+та текст перенесеться на новий рядок
+
+Щоб робити підрозділ напишіть \verb|\subsection{Підрозділ}| 
+
+\subsection{Підрозділ}
+\label{sec:subsection} % можна позначати також розділи
+Він автоматично форматується щоб зверху та знизу нього був рядок. Також він автоматично нумерується. До нього можна звертатися як підрозділ \ref{sec:subsection}. Чесно я б їх зробив по-іншому, але в методичці так. Як на мене вони дуже зливаються з іншим текстом.
+
+\subsubsection{Це підпідрозділ, чи пункт. Таке теж буває}
+
+Він як і всі будуть висвічуватись у змісті
+
+\subsection{Рисунки}
+
+Рисунки вставляються ось так:
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.25\textwidth]{example-image-a}
-    \caption{Правильно подпись делает, между прочим!}
-    \label{fig:mesh1}
-\end{figure} 
+    \includegraphics[width=0.5\textwidth]{example-image-a}
+    \caption{Підписується правильно, та нумерується також}
+    \label{fig:a}
+\end{figure}
+
+Все як написано в методичці: зверху та знизу рядок. 
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.25\textwidth]{example-image-a}
-    \caption{Правильно подпись делает, между прочим!}
-    \label{fig:1}
-\end{figure} 
-\label{sec:main}
-\subsection{Подраздел}
-\label{subsec:main}
-\subsubsection{Подподраздел}
-\label{subsubsec:main}
-\begin{figure}[h]
+    \includegraphics[width=0.4\textwidth]{example-image-b}
+    \caption{Підписується правильно, та нумерується також}
+    \label{fig:b}
+\end{figure}
+
+Я можу звертатися до рис. \ref{fig:a} та \ref{fig:b} та не перейматися про їх номери. Картинки плаваючи, тому можуть легко переноситися на інші сторінки. Якщо вам це не подобається, то пошукайте в інеті :). Якщо картинка залізла на наступну сторінку де повинен був починатись новий розділ, то можете зробити \verb|\clearpage| замість \verb|\newpage|. Чи можна зменшити їх ширину.
+
+\subsection{Таблиці}
+
+Таблиці вставляються ось так:
+
+\begin{table}[h]
+    \caption{Підписує як треба! з абзацу перед таблицею!}
     \centering
-    \includegraphics[width=0.25\textwidth]{example-image-a}
-    \caption{Правильно подпись делает, между прочим!}
-    \label{fig:mesh1}
-\end{figure} 
-\section{очень-очень-очень-очень-очень-очень-очень-очень длинное название раздела (такое бывает)}
-Как было сказано в разделе \ref{sec:main}...\\
-Как было сказано в подразделе \ref{subsec:main}...\\
-Как было сказано в подподразделе \ref{subsubsec:main}...\\
+    \begin{tabular}{|c|c|} \hline
+        Таблиці & Бувають різними \\ \hline
+        Для більшого ознайомлення & \\
+        Краще зайти на: & https://www.overleaf.com/learn/latex/Tables \\ \hline
+    \end{tabular}
+    \label{tab:my_label}
+\end{table}
+
+Таблиці також іноді переносяться на іншу сторінку.
+
+\subsection{Cтатистика у рефераті}
+
+Загальна кількість сторінок, рисунків, таблиць, додатків, посилань збирається у першому рядку реферату автоматично (можете туди подивитись). Тому не треба його завжди перероблювати, якщо ви хочете щось додати
+
+\subsection{Посилання}
+
+Посилання оформлюєш так \verb|\cite{wiki-computerscience}|\cite{wiki-computerscience}. Потім додаєте в переліку посилань bibitem з таким же іменем \verb|\bibitem{wiki-computerscience}|. Потім його називаєте за дсту. Наприклад це можна зробити тут\cite{dstu}.
+
+\subsection{Шаблонні розділи}
+
+В шаблонних розділах, які були до цього просто заповнюйте персональну інформацію, яка стосується вашого проєкту та вас безпосередньо. Зазвичай все що вам потрібно змінити знаходится в ось таких <дужках>.
+
+\section{Проєктування програми}
+
+\section{Інструкція користувача}
+
 % ------------------------------------------- Курсова завершилась ---------------------------------------------
 
+% ------------------------------------------- Висновки --------------------------------------------------------
+\section*{Висновки}
+\addcontentsline{toc}{section}{Висновки} %додаємо сторінку Вступу до змісту
+Ваші висновки
+% ------------------------------------------- Висновки закінчилися --------------------------------------------
+
 % ------------------------------------------- Перелік джерел посилання ----------------------------------------
-\addcontentsline{toc}{section}{ПЕРЕЛІК ДЖЕРЕЛ ПОСИЛАННЯ} 
-\section*{ПЕРЕЛІК ДЖЕРЕЛ ПОСИЛАННЯ}
-\begin{enumerate}
-    \item Дичківська О. О. Інноваційний менеджмент : конспект лекцій. Київ :
-ДІА, 2018. 82 с.
-    \item Мороз І. С., Василенко Н. Ю. Маркетинг : конспект лекцій. Київ :
-Молодь, 2016. 102 с.
-\end{enumerate}
+\raggedright % увімкнути вирівнювання вліво
+\begin{thebibliography}{99} % починаємо перелік та вставляємо туди наші посилання
+    \addcontentsline{toc}{section}{Перелік джерел посилання} % додаємо перелік до змісту 
+    \bibitem{wiki-computerscience} Contributors to Wikimedia projects. Computer science - Wikipedia. Wikipedia, the free encyclopedia. URL: https://en.wikipedia.org/wiki/Computer\_science (date of access: 09.05.2024).
+    \bibitem{dstu}  Grafiati: Оформити списки використаних джерел онлайн. Grafiati: Оформити списки використаних джерел онлайн. URL: https://www.grafiati.com/uk/ (дата звернення: 09.05.2024).
+\end{thebibliography}
+
 % ------------------------------------------- Перелік джерел посилання закінчився -----------------------------
 
+% ------------------------------------------- Додатки (якщо треба) --------------------------------------------
+\titleformat{\section}[display]{\filcenter}{\MakeUppercase{\bfseries{Додаток \thesection}}}{0pt}{} % зміна форматування заголовків у додатках
+\titlecontents{section}[0pt]{\normalfont}{Додаток {\thecontentslabel} }{}{\Dotfill \contentspage} % зміна форматування додатків у змісті
+\appendix
+\setlength{\parindent}{0.5in}
+% додавайте додатки: додатки додаються так само секціями
+
+\section{Вау, це додаток!}
+Так, це додаток! Але скоріш за все його ніхто не буде використовувати :'( Дуже сумно.................
+
+\subsection{Це підрозділ! Подивіться на нумеризацію!}
+
+Це класно, ще класніше, якщо і малюнки теж так підписувались \ldots
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{example-image-a}
+    \caption{І підписується првильно!}
+    \label{fig:enter-label}
+\end{figure}
+
+НІЧОГО СОБІ!!!!!
+
+\section{Вау, це додаток!}
+Так, це додаток!
+\section{Вау, це додаток!}
+Так, це додаток!
+\section{Вау, це додаток!}
+Так, це додаток!
+\section{Бачите як красиво, навіть знає що ґ треба пропускати}
+Так, це круто!
+
+% ------------------------------------------- Додатки (якщо треба) закінчилися -------------------------------
 \end{document}
 
