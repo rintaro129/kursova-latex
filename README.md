@@ -2,6 +2,8 @@
 
 This is a latex-template for the course work on object-oriented programming in Kharkiv National University of Radio Electronics. 
 
+[View](https://github.com/rintaro129/kursova-latex/blob/main/kursova.pdf)
+
 ## Чим цей шаблон гарний?
 
 Дуже багато чим... Він полегшує дуже багато чого при написанні записки. Багато формальностей, які простіше один раз автоматизувати і потім забути. 
